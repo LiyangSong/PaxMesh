@@ -1,4 +1,4 @@
-## PAXOS Based Distributed Cluster
+## PAXOS Based Distributed File System with Version Control
 
 This project implemented PAXOS algorithm as described in Lamport's paper [*PAXOS Made Simple*](https://lamport.azurewebsites.net/pubs/paxos-simple.pdf) in a distributed server cluster. PAXOS was applied to add fault tolerance and achieve consensus of updates amongst replicated state machine KV-store servers. 
 
