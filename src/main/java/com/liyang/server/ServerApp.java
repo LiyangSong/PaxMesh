@@ -1,6 +1,9 @@
-package server;
+package com.liyang.server;
 
-import paxosInterface.PaxosNode;
+import com.liyang.paxosNode.PaxosNode;
+import com.liyang.registry.InMemoryRegistry;
+import com.liyang.registry.NodeInfo;
+import com.liyang.registry.Registry;
 
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
@@ -16,8 +19,22 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ServerApp {
     public static void main(String[] args) {
-        ConcurrentHashMap<String, String> nodeRmiAddresses = getAddresses();
-        List<String> nodeIds = new ArrayList<>(nodeRmiAddresses.keySet());
+        // Discover topology via registry (env-backed in-memory)
+        Registry registry = new InMemoryRegistry();
+        List<NodeInfo> nodes;
+        try {
+            nodes = registry.discover();
+        } catch (Exception e) {
+            ServerLogger.log(null, "Failed to discover nodes from registry: " + e.getMessage());
+            return;
+        }
+
+        ConcurrentHashMap<String, String> nodeRmiAddresses = new ConcurrentHashMap<>();
+        List<String> nodeIds = new ArrayList<>();
+        for (NodeInfo ni : nodes) {
+            nodeIds.add(ni.getNodeId());
+            nodeRmiAddresses.put(ni.getNodeId(), ni.rmiAddress());
+        }
 
         // Start each node
         nodeRmiAddresses.forEach((nodeId, nodeRmiAddress) -> {
@@ -58,23 +75,5 @@ public class ServerApp {
                 ServerLogger.log(nodeId, "Server exception when setting other nodes for " + nodeId + ": " + e.getMessage());
             }
         });
-    }
-
-    /**
-     * Retrieves server configuration from environment variables.
-     * Constructs RMI addresses for each server and returns them as a ConcurrentHashMap.
-     */
-    private static ConcurrentHashMap<String, String> getAddresses() {
-        ConcurrentHashMap<String, String> nodeRmiAddresses = new ConcurrentHashMap<>();
-
-        for (int i = 1; i <= Integer.parseInt(System.getenv("NODE_NUM")); i++) {
-            String nodeHost = System.getenv(String.format("NODE_HOST_%d", i));
-            String nodePort = System.getenv(String.format("NODE_PORT_%d", i));
-            String nodeId = nodePort;
-            String nodeRmiAddress = String.format("rmi://%s:%s/%s", nodeHost, nodePort, nodeId);
-            nodeRmiAddresses.put(nodeId, nodeRmiAddress);
-        }
-
-        return nodeRmiAddresses;
     }
 }

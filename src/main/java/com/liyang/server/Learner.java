@@ -1,10 +1,7 @@
-package server;
-
-import paxosInterface.PaxosNode;
+package com.liyang.server;
 
 import java.rmi.RemoteException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 /**

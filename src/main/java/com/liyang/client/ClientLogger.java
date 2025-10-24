@@ -1,4 +1,4 @@
-package client;
+package com.liyang.client;
 
 import java.io.*;
 

@@ -1,6 +1,6 @@
-package client;
+package com.liyang.client;
 
-import paxosInterface.PaxosNode;
+import com.liyang.paxosNode.PaxosNode;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;

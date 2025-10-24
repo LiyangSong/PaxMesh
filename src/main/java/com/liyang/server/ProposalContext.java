@@ -1,6 +1,8 @@
-package server;
+package com.liyang.server;
 
-import paxosInterface.PaxosNode;
+import com.liyang.paxosNode.PaxosNode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -13,55 +15,26 @@ import java.util.concurrent.ConcurrentHashMap;
  * tracking sequence numbers, committed nodes, and consensus status,
  * among other details necessary for the protocol's operations.
  */
+@Getter
 public class ProposalContext implements Serializable {
     private final UUID proposalId; // Unique identifier for the proposal
+    @Setter
     private int largestSequenceNumber = 0;
+    @Setter
     private ProposalNumber largestProposalNumber = null;
     private final Map<PaxosNode, Boolean> committedNodes = new ConcurrentHashMap<>();
+    @Setter
     private boolean commitConsensus = false;  // Commit consensus has achieved
+    @Setter
     ProposalNumber promisedProposalNumber = null;  // the highest proposal number that has promised by Acceptor
     private final Map<PaxosNode, Boolean> acceptedNodes = new ConcurrentHashMap<>();
+    @Setter
     private boolean acceptedConsensus = false;  // Learn consensus has achieved
+    @Setter
     private Operation finalOperation = null;
 
     public ProposalContext(UUID proposalId) {
         this.proposalId = proposalId;
-    }
-
-    public UUID getProposalId() {
-        return proposalId;
-    }
-
-    public int getLargestSequenceNumber() {
-        return largestSequenceNumber;
-    }
-
-    public ProposalNumber getLargestProposalNumber() {
-        return largestProposalNumber;
-    }
-
-    public Map<PaxosNode, Boolean> getCommittedNodes() {
-        return committedNodes;
-    }
-
-    public ProposalNumber getPromisedProposalNumber() {
-        return promisedProposalNumber;
-    }
-
-    public Map<PaxosNode, Boolean> getAcceptedNodes() {
-        return acceptedNodes;
-    }
-
-    public Operation getFinalOperation() {
-        return finalOperation;
-    }
-
-    public void setLargestSequenceNumber(int largestSequenceNumber) {
-        this.largestSequenceNumber = largestSequenceNumber;
-    }
-
-    public void setLargestProposalNumber(ProposalNumber largestProposalNumber) {
-        this.largestProposalNumber = largestProposalNumber;
     }
 
     public void addCommittedNode(PaxosNode node) {
@@ -76,10 +49,6 @@ public class ProposalContext implements Serializable {
         return committedNodes.size() > totalNum / 2;
     }
 
-    public void setPromisedProposalNumber(ProposalNumber promisedProposalNumber) {
-        this.promisedProposalNumber = promisedProposalNumber;
-    }
-
     public void addAcceptedNode(PaxosNode node) {
         acceptedNodes.put(node, Boolean.TRUE);
     }
@@ -92,23 +61,4 @@ public class ProposalContext implements Serializable {
         return acceptedNodes.size() > totalNum / 2;
     }
 
-    public boolean isCommitConsensus() {
-        return commitConsensus;
-    }
-
-    public void setCommitConsensus(boolean commitConsensus) {
-        this.commitConsensus = commitConsensus;
-    }
-
-    public boolean isAcceptedConsensus() {
-        return acceptedConsensus;
-    }
-
-    public void setAcceptedConsensus(boolean acceptedConsensus) {
-        this.acceptedConsensus = acceptedConsensus;
-    }
-
-    public void setFinalOperation(Operation finalOperation) {
-        this.finalOperation = finalOperation;
-    }
 }

@@ -1,12 +1,11 @@
-package server;
+package com.liyang.server;
 
-import paxosInterface.PaxosNode;
+import com.liyang.paxosNode.PaxosNode;
 
 import java.rmi.RemoteException;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
-import java.util.stream.StreamSupport;
 
 
 /**

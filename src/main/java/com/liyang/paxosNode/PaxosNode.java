@@ -1,7 +1,7 @@
-package paxosInterface;
+package com.liyang.paxosNode;
 
-import server.PaxosMessage;
-import server.ProposalContext;
+import com.liyang.server.PaxosMessage;
+import com.liyang.server.ProposalContext;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

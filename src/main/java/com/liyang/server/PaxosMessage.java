@@ -1,7 +1,8 @@
-package server;
+package com.liyang.server;
 
 
-import paxosInterface.PaxosNode;
+import com.liyang.paxosNode.PaxosNode;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -12,6 +13,7 @@ import java.util.UUID;
  * carrying all necessary information such as proposal ID, type of message,
  * and operation details needed for decision-making in the consensus process.
  */
+@Getter
 public class PaxosMessage implements Serializable {
     private final UUID proposalId;
     private final PaxosMessageType messageType;
@@ -31,38 +33,6 @@ public class PaxosMessage implements Serializable {
         this.operationType = operationType;
         this.key = key;
         this.value = value;
-    }
-
-    public UUID getProposalId() {
-        return proposalId;
-    }
-
-    public PaxosMessageType getMessageType() {
-        return messageType;
-    }
-
-    public ProposalNumber getProposalNumber() {
-        return proposalNumber;
-    }
-
-    public PaxosNode getFromNode() {
-        return fromNode;
-    }
-
-    public PaxosNode getToNode() {
-        return toNode;
-    }
-
-    public OperationType getOperationType() {
-        return operationType;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     @Override

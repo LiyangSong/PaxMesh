@@ -1,4 +1,4 @@
-package server;
+package com.liyang.server;
 
 import java.util.ArrayList;
 import java.util.List;

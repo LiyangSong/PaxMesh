@@ -1,4 +1,4 @@
-package server;
+package com.liyang.server;
 
 public enum OperationType {
     GET("GET"),

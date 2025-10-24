@@ -1,4 +1,6 @@
-package server;
+package com.liyang.server;
+
+import lombok.Getter;
 
 import java.io.Serializable;
 
@@ -6,6 +8,7 @@ import java.io.Serializable;
 /**
  * Represents an operation in the system, containing details like the operation type and the key-value pair involved.
  */
+@Getter
 public class Operation implements Serializable {
     private final OperationType operationType;
     private final String key;
@@ -15,18 +18,6 @@ public class Operation implements Serializable {
         this.operationType = operationType;
         this.key = key;
         this.value = value;
-    }
-
-    public OperationType getOperationType() {
-        return operationType;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     @Override

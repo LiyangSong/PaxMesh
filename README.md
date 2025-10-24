@@ -1,7 +1,5 @@
-## PAXOS Based Distributed KV Store System
+## PaxMesh — Transport-Agnostic RPC Framework with PAXOS
 
-This project implemented PAXOS algorithm as described in Lamport's paper [*PAXOS Made Simple*](https://lamport.azurewebsites.net/pubs/paxos-simple.pdf) in a distributed server cluster. PAXOS was applied to add fault tolerance and achieve consensus of updates amongst replicated state machine KV-store servers. 
+PaxMesh is a compact, transport-agnostic RPC and consensus showcase. It implements PAXOS algorithm in Lamport's [*PAXOS Made Simple*](https://lamport.azurewebsites.net/pubs/paxos-simple.pdf) to coordinate state updates across a small cluster, while abstracting networking behind pluggable transports (Java RMI, Vert.x, etc.), pluggable serialization, and a simple registry. The embedded KV store serves as the state machine to visualize agreement; the emphasis is on end-to-end RPC wiring, PAXOS message flow, and replica convergence under failure.
 
-Remote Procedure call (RPC) protocol was adopted for the convenience of cross-server communications.
-
-To test the fault-tolerance ability of PAXOS, acceptors were configured to "fail" randomly and periodically.
+![paxos_flow.png](paxos_flow.png)

@@ -1,4 +1,6 @@
-package server;
+package com.liyang.server;
+
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -7,17 +9,10 @@ import java.util.Objects;
  * Represents a proposal's unique identifier within the Paxos protocol,
  * consisting of a sequence number and a node ID to ensure uniqueness and proper ordering.
  */
+@Getter
 public class ProposalNumber implements Comparable<ProposalNumber>, Serializable {
     private final int sequenceNumber;
     private final String nodeId;
-
-    public int getSequenceNumber() {
-        return sequenceNumber;
-    }
-
-    public String getNodeId() {
-        return nodeId;
-    }
 
     public ProposalNumber(int sequenceNumber, String nodeId) {
         this.sequenceNumber = sequenceNumber;
